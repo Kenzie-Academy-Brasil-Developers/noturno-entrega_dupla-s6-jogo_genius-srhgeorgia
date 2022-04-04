@@ -1,0 +1,231 @@
+
+:root{
+    --color-green: #00B100;
+    --color-red: #B20000;
+    --color-yellow: #B2B000;
+    --color-blue: #0000B2; 
+    --font-color-popUp: #F0E8E1;
+    --font-color-popUp-title: rgb(175, 205, 206);
+    --modal-color: rgb(53, 62, 63);
+}
+
+main {
+    background-image: url(/img/back.jpg);
+    background-size: 79%;
+    height: 100vh;
+    /* width: 100vw; */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+/* BOTOES */
+
+
+.tabuleiro {
+    position: absolute;
+    height: 95vh;
+    width: 45vw;
+    background-color: black;
+    border-radius: 100%;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+}
+
+.botao{
+    display: flex;
+    justify-content: space-evenly;
+    align-items: center;
+    flex-wrap: wrap;
+    height: 95vh;
+    width: 45vw;
+}
+
+.botao--green{
+    background-color: var(--color-green);
+    height: 45%;
+    width: 45%;
+    margin: auto;
+    border-radius: 0 0 100% 0;
+    border: solid 1px;
+    cursor: pointer;
+}
+
+.botao--yellow{
+    background-color: var(--color-yellow);
+    height: 45%;
+    width: 45%;
+    margin: auto;
+    border-radius: 0 0 0 100%;
+    border: solid 1px;
+    cursor: pointer;
+
+}
+
+.botao--blue{
+    background-color: var(--color-blue);
+    height: 45%;
+    width: 45%;
+    margin: auto;
+    border-radius: 100% 0 0 0;
+    border: solid 1px;
+    cursor: pointer;
+
+}
+
+.botao--red{
+    background-color: var(--color-red);
+    height: 45%;
+    width: 45%;
+    margin: auto;
+    border-radius: 0 100% 0 0;
+    border: solid 1px;
+    cursor: pointer;
+
+}
+
+.pontos {
+    font-family: fantasy;
+    display: flex;
+    justify-content: center;
+    align-content: center;
+    margin-top: 20px;
+    margin-bottom: 3px;
+}
+
+.counter {
+    background-color: #660000;
+    font-family: fantasy;
+    display: flex;
+    justify-content: center;
+    align-content: center;
+    /* margin-top: 20px; */
+    margin: 0 0 33px 59px;
+    width: 30px;
+    border-radius: 1rem;
+    border: 2px solid;
+    height: 15px;
+}
+
+.info{
+    position: absolute;
+    background-color: #f5f5f5;
+    width: 150px;
+    height: 150px;
+    border-radius: 100%;
+    margin-top: 120px;
+    border: 6px solid rgb(48,48,48);
+}
+
+.buttonStart {
+    cursor: pointer;
+    margin-left: 28px;
+    border-radius: 100%;
+    background-color: red;
+    font-family: fantasy;
+    box-shadow: 0 0.2rem 0.3rem #222;
+    height: 13px;
+}
+
+.buttonAgain {
+    cursor: pointer;
+    margin-left: 56px;
+    border-radius: 100%;
+    background-color: yellow;
+    font-family: fantasy;
+    box-shadow: 0 0.2rem 0.3rem #222;
+    height: 13px;
+}
+
+
+.buttonStart:active{
+    transform: translate(0, .10rem);
+    box-shadow: none;
+}
+
+.buttonAgain:active{
+    transform: translate(0, .10rem);
+    box-shadow: none;
+}
+
+
+    /* PARTE FRENTE JOGO */
+.show {
+    position: absolute;
+    height: 95vh;
+    width: 45vw;
+    background-color: var(--modal-color);
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    border-radius: 100%;
+}
+
+#popUp_title {
+    text-align: center;
+    font-size: 30px;
+    color: var(--font-color-popUp-title);
+    font-family: fantasy;
+}
+
+#popUp_form {
+    height: 200px;
+    width: 200px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-evenly;
+    align-items: center;    
+}
+
+.label {
+    font-size: 20px;
+    color: var(--font-color-popUp);
+}
+
+.labelStart{
+    font-family: fantasy;
+    font-size: 10px;
+    margin-left: 25px;
+    margin-right: 7px;
+}
+
+.labelAgain{
+    font-family: fantasy;
+    font-size: 10px;
+}
+
+#input_name {
+    width: 190px;
+    height: 30px;
+    font-size: 15px;
+    text-align: center;
+    cursor: pointer;
+}
+
+#popUp_button{
+    height: 30px;
+    font-weight: bold;
+    background-color: cadetblue;
+    color: var(--font-color-popUp);
+    border-radius: 4px;
+}
+
+#popUp_button:hover{
+    background-color: var(--font-color-popUp-title);
+    opacity: 0.8s;
+    transition: 1s;
+    cursor: pointer;
+}
+
+.hide {
+    display: none;
+}
+
+/* ANIMACAO JOGO*/
+
+
+.selected {
+    opacity: 0.5s;
+}
