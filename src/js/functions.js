@@ -84,7 +84,7 @@ function animacao(botao, cor) {
     setTimeout(() => {
         botao.classList.remove(`animacao${cor}`)
     },1000)
-    sons()
+    // sons()
 }
 
 function animarBotao(botao, cor) {
@@ -99,8 +99,9 @@ function gerarAnimacaoNoBotao() {
     const botao = document.querySelectorAll('.botao')[numeroRandom];
     const corBotao = botao.classList[1].split('-')[2];
 
+
     jogadasMaquina.push(botao)
-    // console.log(botao)
+    console.log(botao)
     let contadorRepet = 0;
 
     const intervaloAnimacao = setInterval(() => {
@@ -110,7 +111,7 @@ function gerarAnimacaoNoBotao() {
                 if (contadorRepet < jogadasMaquina.length){
                     const botaoAtual = jogadasMaquina[contadorRepet];
                     const corAtual = botaoAtual.classList[1].split('-')[2];
-
+                    
                     animarBotao(botaoAtual, corAtual)
                     contadorRepet++
                 } else {
@@ -119,7 +120,7 @@ function gerarAnimacaoNoBotao() {
                 }
             }, 1000)
         } else {
-            animarBotao(botao, corBotao)
+            animarBotao(botao, corBotao)    
             clearInterval(intervaloAnimacao)
         }
     }, 1000)
@@ -133,7 +134,7 @@ function adicionarEventosBotoes() {
         botoes[i].addEventListener('click', (e) => {
             const botaoClicado = e.target
             // console.log(botaoClicado)
-            // const corBotaoClicado = e.target.classList[1].split('-')[2];
+            const corBotaoClicado = e.target.classList[1].split('-')[2];
             jogadasPessoas.push(botaoClicado)
 
             if(verificaPerda()) {
@@ -161,38 +162,44 @@ function verificaPerda() {
 }
 
 function iniciarJogo() {
+    // jogadasMaquina = [];
+    // jogadasPessoas = [];
+
+    // console.log(jogadasMaquina)
+    // console.log(jogadasPessoas)
+
     gerarAnimacaoNoBotao()
     adicionarEventosBotoes()
 }
 
-function sons(cor){
-    if (cor == 'botao--green') {
-        somDoGreen.play();
-        if (audio.currentTime > 0.5) {
-            setTimeout(() => {
-                audio.pause();
-            }, 450);
-        }
-    } else if (cor == 'botao--red') {
-        somDoRed.play();
-        if (audio.currentTime > 0.5) {
-            setTimeout(() => {
-                audio.pause();
-            }, 450);
-        }
-    } else if (cor == 'botao--yellow') {
-        somDoYellow.play();
-        if (audio.currentTime > 0.5) {
-            setTimeout(() => {
-                audio.pause();
-            }, 450);
-        }
-    } else if ('botao--blue') {
-        somDoBlue.play();
-        if (audio.currentTime > 0.5) {
-            setTimeout(() => {
-                audio.pause();
-            }, 450);
-        }
-    }
-}
+// function sons(cor, audio){
+//     if (cor == 'botao--green') {
+//         somDoGreen.play();
+//         if (audio.currentTime > 0.5) {
+//             setTimeout(() => {
+//                 audio.pause();
+//             }, 450);
+//         }
+//     } else if (cor == 'botao--red') {
+//         somDoRed.play();
+//         if (audio.currentTime > 0.5) {
+//             setTimeout(() => {
+//                 audio.pause();
+//             }, 450);
+//         }
+//     } else if (cor == 'botao--yellow') {
+//         somDoYellow.play();
+//         if (audio.currentTime > 0.5) {
+//             setTimeout(() => {
+//                 audio.pause();
+//             }, 450);
+//         }
+//     } else if ('botao--blue') {
+//         somDoBlue.play();
+//         if (audio.currentTime > 0.5) {
+//             setTimeout(() => {
+//                 audio.pause();
+//             }, 450);
+//         }
+//     }
+// }
