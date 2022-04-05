@@ -9,12 +9,8 @@ function criaTabuleiro(){
     
     const pontos = document.createElement('p')
     pontos.classList.add('pontos')
-    pontos.innerText = 'Pontuação'
-
-    const counter = document.createElement('p')
-    counter.classList.add('counter')
-    // counter.innerText = ':'
-
+    pontos.innerText = 'GENIUS'
+    
     const buttonStart = document.createElement('button')
     buttonStart.classList.add('buttonStart')
 
@@ -31,17 +27,16 @@ function criaTabuleiro(){
     labelAgain.htmlFor = 'buttonAgain';
     labelAgain.innerText = 'Jogar novamente:';
     
+    info.append(pontos,buttonStart,buttonAgain,labelStart,labelAgain)
+    
     container.appendChild(info)
-    container.appendChild(criarModal())
+    //container.appendChild(criarModal())
     container.appendChild(criaBotao())
     main.appendChild(container)
-    info.append(pontos,counter,buttonStart,buttonAgain,labelStart,labelAgain)
-
 }
-
 function criaBotao(){
-    const botao = document.createElement('section')
-    botao.classList.add('botao')
+    const section = document.createElement('section')
+    section.classList.add('section') 
 
     const azul = document.createElement('div')
     azul.classList.add('botao', 'botao--blue')
@@ -54,21 +49,18 @@ function criaBotao(){
 
     const verde = document.createElement('div')
     verde.classList.add('botao', 'botao--green')
+    section.append(azul,vermelho,amarelo,verde)
 
-    botao.append(azul,vermelho,amarelo,verde)
-    return botao;
+    return section;
 }
-
 
 function criarModal() {
     const main = document.querySelector('main')
-
     const popUp = document.createElement('div');
     popUp.setAttribute('id', 'popUp')
     popUp.classList.add('show')
     
-    main.appendChild(popUp)
-
+    
     const popUpTitulo = document.createElement('h2')
     popUpTitulo.setAttribute('id', 'popUp_title')
     popUpTitulo.innerText = 'JOGO GENIUS'
@@ -89,14 +81,8 @@ function criarModal() {
     const button = document.createElement('button')
     button.setAttribute('id', 'popUp_button')
     button.innerText = 'Iniciar o jogo!';
-
     form.append(label,input,button)
     popUp.appendChild(form)
-
-    return popUp
+    main.appendChild(popUp)
 }
-
-criaTabuleiro()
-
-
-
+criarModal()
