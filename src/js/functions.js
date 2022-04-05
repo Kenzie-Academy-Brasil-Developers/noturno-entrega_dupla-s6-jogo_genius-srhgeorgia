@@ -11,22 +11,10 @@ somDoYellow.volume = 0.2;
 somDoBlue.volume = 0.2;
 
 
-let order = [];
-let clickedOrder = [];
-let score = [];
-
-
-
 //DOM 
-
-const blue = document.querySelector('.botao--blue')
-const red = document.querySelector('.botao--red')
-const yellow = document.querySelector('.botao--yellow')
-const green = document.querySelector('.botao--green')
 const counter = document.querySelector('.counter')
 const start = document.querySelector('.buttonStart')
 const again = document.querySelector('.buttonAgain')
-const colors = [green, red, yellow, blue];
 
 
 //entrada
@@ -46,164 +34,172 @@ button.addEventListener('click', (event) => {
         popUp.classList.add('hide')
         popUp.classList.remove('show')
     }
-
 })
 
+let jogadasMaquina = [];
+let jogadasPessoas = [];
+let contador = 0;
 
-//botao start
+// //botao start
 start.addEventListener('click', () =>{
     alert('Bom jogo!')
-    playGame()
+    iniciarJogo()
 })
 
-//botao jogar novamente
+// // //botao jogar novamente
 again.addEventListener('click', () =>{
     alert('Vamos lá de novo!')
-    playGame()
+    // gameOver()
 })
 
-//proximo nivel do jogo
-let nextLevel = () =>{  
-    score++;
-    shuffleOrder();
-}
-
-//iniciar o jogo
-let playGame = () => {
-    score = 0;
-    nextLevel();
-}
- 
-//endgame 
-let gameOver = () => {
-    somGameover.play()
-    alert(`Pontuação: ${score}!\nVocê perdeu o jogo!\nClique em jogar novamente!`)
-    order = []
-    clickedOrder = []
-
-    playGame();
-}
+// //proximo nivel do jogo
+// // const nextLevel = () =>{  
+// //     score++;
+// //     gerarNumeroRandomico();
+// // }
 
 
-// //atualiza os pontos
-// let scoreTela = () => {
-//     counter.innerHTML = score++;
-//     console.log(counter)
+// //endgame 
+// const gameOver = () => {
+//     somGameover.play()
+//     alert(`Pontuação: ${contador}!\nVocê perdeu o jogo!\nClique em jogar novamente!`)
+//     jogadasMaquina = [];
+//     jogadasPessoas = [];
 // }
 
 
-//adicionando sons 
-let soundColorPlay = (color) => {
-    if ((color == 0) || (color == 'green')) {
-        somDoGreen.play();
-        if (audio.currentTime > 0.5) {
-            setTimeout(() => {
-                audio.pause();
-            }, 450);
-        }
-    } else if ((color == 1) || (color == 'red')) {
-        somDoRed.play();
-        if (audio.currentTime > 0.5) {
-            setTimeout(() => {
-                audio.pause();
-            }, 450);
-        }
-    } else if ((color == 2) || (color == 'yellow')) {
-        somDoYellow.play();
-        if (audio.currentTime > 0.5) {
-            setTimeout(() => {
-                audio.pause();
-            }, 450);
-        }
-    } else if ((color == 3) || (color == 'blue')) {
-        somDoBlue.play();
-        if (audio.currentTime > 0.5) {
-            setTimeout(() => {
-                audio.pause();
-            }, 450);
-        }
-    }
+// // //atualiza os pontos
+// // let scoreTela = () => {
+// //     counter.innerHTML = score++;
+// //     console.log(counter)
+// // }
+
+
+function gerarNumeroRandomico(min, max) {
+    return Math.floor(Math.random() * (max - min) + min)
 }
 
-
-//retornando a cor
-function createColorElement(colors){
-    if(colors == 0){
-        return green;
-    }else if(colors == 1){
-        return red;
-    }else if(colors == 2){
-        return yellow;
-    }else if(colors == 3){
-        return blue;
-    }
-}
-createColorElement(colors);
-
-
-//checka se os botoes sao iguais da ordem gerada aleatoriamente
-let checkOrder = () => {
-    for(let i in clickedOrder){
-        if(clickedOrder[i] != order[i]){
-            gameOver();
-            break;
-        }
-    }
-    if(clickedOrder.length == order.length){
-        alert(`Pontuação: ${score}\nVocê acertou! Iniciando próximo nível!`);
-
-        nextLevel();
-    }
-}
-
-//cria ordem aleatoria de cores
-let shuffleOrder = () => {
-    let colorOrder = Math.floor(Math.random() * 4);
-    order[order.length] = colorOrder;
-    clickedOrder = [];
-
-    for(let i in order){
-        let elementColor = createColorElement(order[i]);
-        lightColor(elementColor, Number(i) + 1);
-    }
-}
-
-
-//eventos de click de cores
-green.onclick = () =>click(0);
-red.onclick = () =>click(1);
-yellow.onclick = () =>click(2);
-blue.onclick = () =>click(3);
-
-
-
-
-//acende a proxima cor
-function lightColor (elem, number){
-    number = number * 500;
+function animacao(botao, cor) {
+    botao.classList.add(`animacao${cor}`);
     setTimeout(() => {
-        elem.classlist.add('selected')
-    }, number - 250);
-    setTimeout(() => {
-        elem.classList.remove('selected')
-    }, number + 350)
-}
-lightColor()
-
-
-
-
-//cria o clique do usuario 
-let click = (color) => {
-    clickedOrder[checkOrder.length] = color;
-    createColorElement(color).classList.add('selected');
-
-    setTimeout(() => {
-        createColorElement(color).classList.remove('selected');
-        checkOrder();
-    },250);
+        botao.classList.remove(`animacao${cor}`)
+    },1000)
+    // sons()
 }
 
+function animarBotao(botao, cor) {
+    setTimeout(() => {
+        animacao(botao, cor)
+    }, 1000)
+} 
+
+function gerarAnimacaoNoBotao() {
+    const numeroRandom = gerarNumeroRandomico(0, 4)
+
+    const botao = document.querySelectorAll('.botao')[numeroRandom];
+    const corBotao = botao.classList[1].split('-')[2];
 
 
+    jogadasMaquina.push(botao)
+    console.log(botao)
+    let contadorRepet = 0;
 
+    const intervaloAnimacao = setInterval(() => {
+        if(jogadasMaquina.length > 0) {
+
+            setTimeout(() => {
+                if (contadorRepet < jogadasMaquina.length){
+                    const botaoAtual = jogadasMaquina[contadorRepet];
+                    const corAtual = botaoAtual.classList[1].split('-')[2];
+                    
+                    animarBotao(botaoAtual, corAtual)
+                    contadorRepet++
+                } else {
+                    contadorRepet = 0;
+                    clearInterval(intervaloAnimacao)
+                }
+            }, 1000)
+        } else {
+            animarBotao(botao, corBotao)    
+            clearInterval(intervaloAnimacao)
+        }
+    }, 1000)
+  
+}
+
+function adicionarEventosBotoes() {
+    const botoes = document.querySelectorAll('.botao')
+
+    for (let i =0; i < botoes.length; i++) {
+        botoes[i].addEventListener('click', (e) => {
+            const botaoClicado = e.target
+            // console.log(botaoClicado)
+            const corBotaoClicado = e.target.classList[1].split('-')[2];
+            jogadasPessoas.push(botaoClicado)
+
+            if(verificaPerda()) {
+                console.log('perdeu')
+
+            } else if (jogadasPessoas.length === jogadasMaquina.length) {
+                jogadasPessoas = [];
+                gerarAnimacaoNoBotao()
+                console.log('tudo certo')
+            }
+        })
+    }
+}
+
+function verificaPerda() {
+    // console.log(jogadasMaquina)
+    // console.log(jogadasPessoas)
+    for (let i = 0; i < jogadasPessoas.length; i++) {
+        const botao = jogadasMaquina[i];
+        if(jogadasPessoas[i] !== botao) {
+            return true
+        }
+    }
+    return false
+}
+
+function iniciarJogo() {
+    // jogadasMaquina = [];
+    // jogadasPessoas = [];
+
+    // console.log(jogadasMaquina)
+    // console.log(jogadasPessoas)
+
+    gerarAnimacaoNoBotao()
+    adicionarEventosBotoes()
+}
+
+// function sons(cor, audio){
+//     if (cor == 'botao--green') {
+//         somDoGreen.play();
+//         if (audio.currentTime > 0.5) {
+//             setTimeout(() => {
+//                 audio.pause();
+//             }, 450);
+//         }
+//     } else if (cor == 'botao--red') {
+//         somDoRed.play();
+//         if (audio.currentTime > 0.5) {
+//             setTimeout(() => {
+//                 audio.pause();
+//             }, 450);
+//         }
+//     } else if (cor == 'botao--yellow') {
+//         somDoYellow.play();
+//         if (audio.currentTime > 0.5) {
+//             setTimeout(() => {
+//                 audio.pause();
+//             }, 450);
+//         }
+//     } else if ('botao--blue') {
+//         somDoBlue.play();
+//         if (audio.currentTime > 0.5) {
+//             setTimeout(() => {
+//                 audio.pause();
+//             }, 450);
+//         }
+//     }
+// }
