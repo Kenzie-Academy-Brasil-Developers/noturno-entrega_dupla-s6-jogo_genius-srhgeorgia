@@ -225,7 +225,55 @@ main {
 
 /* ANIMACAO JOGO*/
 
+@keyframes animacaoGreen{
+    50%{
+        background-color: #00CC00;
+        transform: scale(1.05);
+        box-shadow: 0px 5px 50px 5px rgba(255, 255, 255, 0.8); 
+    }
+}
 
-.selected {
-    opacity: 0.5s;
+@keyframes animacaoYellow{
+    50%{
+        background-color: #CCC000;
+        transform: scale(1.05);
+        box-shadow: 0px 5px 50px 5px rgba(255, 255, 255, 0.8); 
+    }
+}
+
+@keyframes animacaoBlue{
+    50%{
+        background-color: #0000CC;
+        transform: scale(1.05);
+        box-shadow: 0px 5px 50px 5px rgba(255, 255, 255, 0.8); 
+    }
+}
+
+@keyframes animacaoRed{
+    50%{
+        background-color: #CC0000;
+        transform: scale(1.05);
+        box-shadow: 0px 5px 50px 5px rgba(255, 255, 255, 0.8); 
+    }
+}
+
+
+.animacaored{
+    animation-name: animacaoRed;
+    animation-duration: 0.8s;
+}
+
+.animacaoblue{
+    animation-name: animacaoBlue;
+    animation-duration: 0.8s;
+}
+
+.animacaogreen{
+    animation-name: animacaoGreen;
+    animation-duration: 0.8s;
+}
+
+.animacaoyellow{
+    animation-name: animacaoYellow;
+    animation-duration: 0.8s;
 }

@@ -39,7 +39,6 @@ function criaTabuleiro(){
 
 }
 
-
 function criaBotao(){
     const botao = document.createElement('section')
     botao.classList.add('botao')
