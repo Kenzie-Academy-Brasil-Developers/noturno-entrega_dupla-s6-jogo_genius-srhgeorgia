@@ -1,22 +1,22 @@
-let somGameover = document.getElementById("somGameover"); //Som de GameOver
-let somDoGreen = document.getElementById("somDoGreen");
-let somDoRed = document.getElementById("somDoRed");
-let somDoYellow = document.getElementById("somDoYellow");
-let somDoBlue = document.getElementById("somDoBlue");
-
-somGameover.volume = 0.2;
-somDoGreen.volume = 0.2;
-somDoRed.volume = 0.2;
-somDoYellow.volume = 0.2;
-somDoBlue.volume = 0.2;
-
-
-//DOM 
-const counter = document.querySelector('.counter')
-const start = document.querySelector('.buttonStart')
-const again = document.querySelector('.buttonAgain')
-
-
+function resetGame() {
+    const main = document.querySelector('#main')
+    main.innerHTML= '';
+    criaTabuleiro()
+    const start = document.querySelector('.buttonStart')
+    const again = document.querySelector('.buttonAgain')
+     // //botao start
+     start.addEventListener('click', () =>{
+        alert('Bom jogo! Aguarde sua vez!')
+        iniciarJogo()
+    })
+    // // //botao jogar novamente
+    again.addEventListener('click', () =>{
+        alert('Vamos lá de novo!')
+        jogadasMaquina = [];
+        jogadasPessoas = [];
+    })
+    iniciarJogo()
+}
 //entrada
 const button = document.getElementById('popUp_button')
 button.addEventListener('click', (event) => {
@@ -24,56 +24,37 @@ button.addEventListener('click', (event) => {
     
     const popUp = document.getElementById('popUp');
     const input = document.getElementById('input_name').value
-    const nome = document.querySelector('.nome').value
     // console.log(nome)
-    
-    if (input === '') {
-        alert('Ops! Não consegui identificar seu nome.')
-    } else {
-        alert(`Bem vindo(a), ${nome}`)
-        popUp.classList.add('hide')
-        popUp.classList.remove('show')
-    }
+        if (input === '') {
+            alert('Ops! Não consegui identificar seu nome.')
+        } else {
+            alert(`Bem vindo(a), ${input}`)
+            popUp.classList.add('hide')
+            popUp.classList.remove('show')
+            criaTabuleiro()
+                
+            const start = document.querySelector('.buttonStart')
+            const again = document.querySelector('.buttonAgain')
+        
+            // //botao start
+            start.addEventListener('click', () =>{
+                alert('Bom jogo! Aguarde sua vez!')
+                iniciarJogo()
+            })
+        
+            // // //botao jogar novamente
+            again.addEventListener('click', () =>{
+                alert('Vamos lá de novo!')
+                jogadasMaquina = [];
+                jogadasPessoas = [];
+                resetGame()
+            })
+        }
 })
 
 let jogadasMaquina = [];
 let jogadasPessoas = [];
 let contador = 0;
-
-// //botao start
-start.addEventListener('click', () =>{
-    alert('Bom jogo!')
-    iniciarJogo()
-})
-
-// // //botao jogar novamente
-again.addEventListener('click', () =>{
-    alert('Vamos lá de novo!')
-    // gameOver()
-})
-
-// //proximo nivel do jogo
-// // const nextLevel = () =>{  
-// //     score++;
-// //     gerarNumeroRandomico();
-// // }
-
-
-// //endgame 
-// const gameOver = () => {
-//     somGameover.play()
-//     alert(`Pontuação: ${contador}!\nVocê perdeu o jogo!\nClique em jogar novamente!`)
-//     jogadasMaquina = [];
-//     jogadasPessoas = [];
-// }
-
-
-// // //atualiza os pontos
-// // let scoreTela = () => {
-// //     counter.innerHTML = score++;
-// //     console.log(counter)
-// // }
-
 
 function gerarNumeroRandomico(min, max) {
     return Math.floor(Math.random() * (max - min) + min)
@@ -84,29 +65,23 @@ function animacao(botao, cor) {
     setTimeout(() => {
         botao.classList.remove(`animacao${cor}`)
     },1000)
-    // sons()
 }
 
 function animarBotao(botao, cor) {
     setTimeout(() => {
         animacao(botao, cor)
-    }, 1000)
+    }, 2000)
 } 
 
 function gerarAnimacaoNoBotao() {
     const numeroRandom = gerarNumeroRandomico(0, 4)
-
     const botao = document.querySelectorAll('.botao')[numeroRandom];
     const corBotao = botao.classList[1].split('-')[2];
-
-
     jogadasMaquina.push(botao)
     console.log(botao)
     let contadorRepet = 0;
-
     const intervaloAnimacao = setInterval(() => {
         if(jogadasMaquina.length > 0) {
-
             setTimeout(() => {
                 if (contadorRepet < jogadasMaquina.length){
                     const botaoAtual = jogadasMaquina[contadorRepet];
@@ -123,26 +98,24 @@ function gerarAnimacaoNoBotao() {
             animarBotao(botao, corBotao)    
             clearInterval(intervaloAnimacao)
         }
-    }, 1000)
+    }, 2000)
   
 }
 
 function adicionarEventosBotoes() {
     const botoes = document.querySelectorAll('.botao')
-
-    for (let i =0; i < botoes.length; i++) {
+    for (let i = 0; i < botoes.length; i++) {
         botoes[i].addEventListener('click', (e) => {
             const botaoClicado = e.target
-            // console.log(botaoClicado)
-            const corBotaoClicado = e.target.classList[1].split('-')[2];
             jogadasPessoas.push(botaoClicado)
-
             if(verificaPerda()) {
+               alert(`Você perdeu :( Clique em jogar novamente!`)
                 console.log('perdeu')
-
+               
             } else if (jogadasPessoas.length === jogadasMaquina.length) {
                 jogadasPessoas = [];
                 gerarAnimacaoNoBotao()
+                alert('Parabens! Proximo nível, aguarde sua vez!')
                 console.log('tudo certo')
             }
         })
@@ -150,8 +123,6 @@ function adicionarEventosBotoes() {
 }
 
 function verificaPerda() {
-    // console.log(jogadasMaquina)
-    // console.log(jogadasPessoas)
     for (let i = 0; i < jogadasPessoas.length; i++) {
         const botao = jogadasMaquina[i];
         if(jogadasPessoas[i] !== botao) {
@@ -162,44 +133,6 @@ function verificaPerda() {
 }
 
 function iniciarJogo() {
-    // jogadasMaquina = [];
-    // jogadasPessoas = [];
-
-    // console.log(jogadasMaquina)
-    // console.log(jogadasPessoas)
-
     gerarAnimacaoNoBotao()
     adicionarEventosBotoes()
 }
-
-// function sons(cor, audio){
-//     if (cor == 'botao--green') {
-//         somDoGreen.play();
-//         if (audio.currentTime > 0.5) {
-//             setTimeout(() => {
-//                 audio.pause();
-//             }, 450);
-//         }
-//     } else if (cor == 'botao--red') {
-//         somDoRed.play();
-//         if (audio.currentTime > 0.5) {
-//             setTimeout(() => {
-//                 audio.pause();
-//             }, 450);
-//         }
-//     } else if (cor == 'botao--yellow') {
-//         somDoYellow.play();
-//         if (audio.currentTime > 0.5) {
-//             setTimeout(() => {
-//                 audio.pause();
-//             }, 450);
-//         }
-//     } else if ('botao--blue') {
-//         somDoBlue.play();
-//         if (audio.currentTime > 0.5) {
-//             setTimeout(() => {
-//                 audio.pause();
-//             }, 450);
-//         }
-//     }
-// }
